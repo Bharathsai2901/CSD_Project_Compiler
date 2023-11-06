@@ -1280,7 +1280,7 @@ pop temp 0 CHAR
 push temp 0 CHAR
 pop local 0 CHAR
 label #L73
-push constant 'a' CHAR
+push constant '\n' CHAR
 pop temp 1 CHAR
 push local 0 CHAR
 push temp 1 CHAR
@@ -1293,7 +1293,7 @@ push temp 2 CHAR
 if-goto #L74
 goto #L75
 label #L74
-push constant 'b' CHAR
+push constant '\b' CHAR
 pop temp 0 CHAR
 push local 0 CHAR
 push temp 0 CHAR

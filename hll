@@ -49,13 +49,8 @@
 // }
 
 // int main(){
-//     int t = 5;
-//     int k = f(t);
-//     //typeof x;
-//     progout(k);
-//     //int y=5;
-//     //progout(y);
-//     return 0;
+//     char c = '\b';
+//     progout(c);
 // }
 
 void global(){
@@ -216,8 +211,8 @@ string readLine(string message) {
     c = readChar();
     // char a = '\n';
     // char b = '\b';
-    while (c != 'a') {
-        if (c == 'b') {
+    while (c != '\n') {
+        if (c == '\b') {
             // if (line.length() != 0) {
             //     removeLastCharacter(line);
             // }

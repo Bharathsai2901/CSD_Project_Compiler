@@ -57,6 +57,7 @@
         int size;   // for arrays
         int isArray;
         int line_number; 
+        //string value;
     };
 
     vector<string> tac;
@@ -819,6 +820,10 @@ const           :   INT_NUM {
                         strcpy($$.lexeme, $1.lexeme);
                     }
                     | CHARACTER {
+                        // printf("CHAR");
+                        // printf("\n");
+                        // printf($1.lexeme);
+                        // printf("\n");
                         strcpy($$.type, "CHAR");
                         strcpy($$.lexeme, $1.lexeme);
                     }

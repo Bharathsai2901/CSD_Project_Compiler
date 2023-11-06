@@ -80,7 +80,7 @@ digit [0-9]
 [ \t]*                      { ; }
 [\n]                        { countn++; }
 ["].*["]                    { strcpy(yylval.node.lexeme, yytext); return STR; }
-['].[']|['\\n']|['\\b']     { strcpy(yylval.node.lexeme, yytext); return CHARACTER; }
+['][\\][nb][']|['].[']  { strcpy(yylval.node.lexeme, yytext); return CHARACTER; }
 [<].*[>]                     { strcpy(yylval.node.lexeme, yytext); return HEADERFILE; }
 .                           { ; }
 

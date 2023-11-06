@@ -427,14 +427,14 @@ readLine: STRING
 c = @t46 CHAR
 
 #L73:
-@t44 = 'a' CHAR
+@t44 = '\n' CHAR
 @t46 = c == @t44 CHAR
 @t45 = ~ @t46 CHAR
 
 if @t45 GOTO #L74 else GOTO #L75
 
 #L74:
-@t46 = 'b' CHAR
+@t46 = '\b' CHAR
 @t45 = c == @t46 CHAR
 if @t45 GOTO #L77 else GOTO #L78
 #L77:
