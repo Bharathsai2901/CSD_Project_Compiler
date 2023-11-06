@@ -60,56 +60,57 @@ extern int yydebug;
     CHAR = 261,                    /* CHAR  */
     FLOAT = 262,                   /* FLOAT  */
     STRING = 263,                  /* STRING  */
-    VOID = 264,                    /* VOID  */
-    RETURN = 265,                  /* RETURN  */
-    INT_NUM = 266,                 /* INT_NUM  */
-    FLOAT_NUM = 267,               /* FLOAT_NUM  */
-    ID = 268,                      /* ID  */
-    LEFTSHIFT = 269,               /* LEFTSHIFT  */
-    RIGHTSHIFT = 270,              /* RIGHTSHIFT  */
-    LE = 271,                      /* LE  */
-    GE = 272,                      /* GE  */
-    EQ = 273,                      /* EQ  */
-    NE = 274,                      /* NE  */
-    GT = 275,                      /* GT  */
-    LT = 276,                      /* LT  */
-    AND = 277,                     /* AND  */
-    OR = 278,                      /* OR  */
-    NOT = 279,                     /* NOT  */
-    ADD = 280,                     /* ADD  */
-    SUBTRACT = 281,                /* SUBTRACT  */
-    DIVIDE = 282,                  /* DIVIDE  */
-    MULTIPLY = 283,                /* MULTIPLY  */
-    MODULO = 284,                  /* MODULO  */
-    BITAND = 285,                  /* BITAND  */
-    BITOR = 286,                   /* BITOR  */
-    NEGATION = 287,                /* NEGATION  */
-    XOR = 288,                     /* XOR  */
-    STR = 289,                     /* STR  */
-    CHARACTER = 290,               /* CHARACTER  */
-    CC = 291,                      /* CC  */
-    OC = 292,                      /* OC  */
-    CS = 293,                      /* CS  */
-    OS = 294,                      /* OS  */
-    CF = 295,                      /* CF  */
-    OF = 296,                      /* OF  */
-    COMMA = 297,                   /* COMMA  */
-    COLON = 298,                   /* COLON  */
-    SCOL = 299,                    /* SCOL  */
-    OUTPUT = 300,                  /* OUTPUT  */
-    INPUT = 301,                   /* INPUT  */
-    SWITCH = 302,                  /* SWITCH  */
-    CASE = 303,                    /* CASE  */
-    BREAK = 304,                   /* BREAK  */
-    DEFAULT = 305,                 /* DEFAULT  */
-    IF = 306,                      /* IF  */
-    ELIF = 307,                    /* ELIF  */
-    ELSE = 308,                    /* ELSE  */
-    WHILE = 309,                   /* WHILE  */
-    FOR = 310,                     /* FOR  */
-    CONTINUE = 311,                /* CONTINUE  */
-    TYPEOF = 312,                  /* TYPEOF  */
-    ASSIGN = 313                   /* ASSIGN  */
+    BOOL = 264,                    /* BOOL  */
+    VOID = 265,                    /* VOID  */
+    RETURN = 266,                  /* RETURN  */
+    INT_NUM = 267,                 /* INT_NUM  */
+    FLOAT_NUM = 268,               /* FLOAT_NUM  */
+    ID = 269,                      /* ID  */
+    LEFTSHIFT = 270,               /* LEFTSHIFT  */
+    RIGHTSHIFT = 271,              /* RIGHTSHIFT  */
+    LE = 272,                      /* LE  */
+    GE = 273,                      /* GE  */
+    EQ = 274,                      /* EQ  */
+    NE = 275,                      /* NE  */
+    GT = 276,                      /* GT  */
+    LT = 277,                      /* LT  */
+    AND = 278,                     /* AND  */
+    OR = 279,                      /* OR  */
+    NOT = 280,                     /* NOT  */
+    ADD = 281,                     /* ADD  */
+    SUBTRACT = 282,                /* SUBTRACT  */
+    DIVIDE = 283,                  /* DIVIDE  */
+    MULTIPLY = 284,                /* MULTIPLY  */
+    MODULO = 285,                  /* MODULO  */
+    BITAND = 286,                  /* BITAND  */
+    BITOR = 287,                   /* BITOR  */
+    NEGATION = 288,                /* NEGATION  */
+    XOR = 289,                     /* XOR  */
+    STR = 290,                     /* STR  */
+    CHARACTER = 291,               /* CHARACTER  */
+    CC = 292,                      /* CC  */
+    OC = 293,                      /* OC  */
+    CS = 294,                      /* CS  */
+    OS = 295,                      /* OS  */
+    CF = 296,                      /* CF  */
+    OF = 297,                      /* OF  */
+    COMMA = 298,                   /* COMMA  */
+    COLON = 299,                   /* COLON  */
+    SCOL = 300,                    /* SCOL  */
+    OUTPUT = 301,                  /* OUTPUT  */
+    INPUT = 302,                   /* INPUT  */
+    SWITCH = 303,                  /* SWITCH  */
+    CASE = 304,                    /* CASE  */
+    BREAK = 305,                   /* BREAK  */
+    DEFAULT = 306,                 /* DEFAULT  */
+    IF = 307,                      /* IF  */
+    ELIF = 308,                    /* ELIF  */
+    ELSE = 309,                    /* ELSE  */
+    WHILE = 310,                   /* WHILE  */
+    FOR = 311,                     /* FOR  */
+    CONTINUE = 312,                /* CONTINUE  */
+    TYPEOF = 313,                  /* TYPEOF  */
+    ASSIGN = 314                   /* ASSIGN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -124,56 +125,57 @@ extern int yydebug;
 #define CHAR 261
 #define FLOAT 262
 #define STRING 263
-#define VOID 264
-#define RETURN 265
-#define INT_NUM 266
-#define FLOAT_NUM 267
-#define ID 268
-#define LEFTSHIFT 269
-#define RIGHTSHIFT 270
-#define LE 271
-#define GE 272
-#define EQ 273
-#define NE 274
-#define GT 275
-#define LT 276
-#define AND 277
-#define OR 278
-#define NOT 279
-#define ADD 280
-#define SUBTRACT 281
-#define DIVIDE 282
-#define MULTIPLY 283
-#define MODULO 284
-#define BITAND 285
-#define BITOR 286
-#define NEGATION 287
-#define XOR 288
-#define STR 289
-#define CHARACTER 290
-#define CC 291
-#define OC 292
-#define CS 293
-#define OS 294
-#define CF 295
-#define OF 296
-#define COMMA 297
-#define COLON 298
-#define SCOL 299
-#define OUTPUT 300
-#define INPUT 301
-#define SWITCH 302
-#define CASE 303
-#define BREAK 304
-#define DEFAULT 305
-#define IF 306
-#define ELIF 307
-#define ELSE 308
-#define WHILE 309
-#define FOR 310
-#define CONTINUE 311
-#define TYPEOF 312
-#define ASSIGN 313
+#define BOOL 264
+#define VOID 265
+#define RETURN 266
+#define INT_NUM 267
+#define FLOAT_NUM 268
+#define ID 269
+#define LEFTSHIFT 270
+#define RIGHTSHIFT 271
+#define LE 272
+#define GE 273
+#define EQ 274
+#define NE 275
+#define GT 276
+#define LT 277
+#define AND 278
+#define OR 279
+#define NOT 280
+#define ADD 281
+#define SUBTRACT 282
+#define DIVIDE 283
+#define MULTIPLY 284
+#define MODULO 285
+#define BITAND 286
+#define BITOR 287
+#define NEGATION 288
+#define XOR 289
+#define STR 290
+#define CHARACTER 291
+#define CC 292
+#define OC 293
+#define CS 294
+#define OS 295
+#define CF 296
+#define OF 297
+#define COMMA 298
+#define COLON 299
+#define SCOL 300
+#define OUTPUT 301
+#define INPUT 302
+#define SWITCH 303
+#define CASE 304
+#define BREAK 305
+#define DEFAULT 306
+#define IF 307
+#define ELIF 308
+#define ELSE 309
+#define WHILE 310
+#define FOR 311
+#define CONTINUE 312
+#define TYPEOF 313
+#define ASSIGN 314
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -196,7 +198,7 @@ union YYSTYPE
         int nParams;
     } node;
 
-#line 200 "y.tab.h"
+#line 202 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

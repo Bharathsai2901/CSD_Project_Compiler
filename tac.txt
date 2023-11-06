@@ -1,3 +1,561 @@
-char key
-syntax error in line 197
-syntax error
+global: void
+@t0 = 16384 INT
+- INT MEMORY_SIZE
+MEMORY_SIZE = @t0 INT
+@t1 = 2048 INT
+- INT FREE_LIST_START
+FREE_LIST_START = @t1 INT
+@t2 = 1 INT
+@t3 = - @t2 INT
+- INT NO_BLOCK
+NO_BLOCK = @t3 INT
+- INT freeBlockStarts [ 14336 ] 
+- INT freeBlockSizes [ 14336 ] 
+- INT memory [ 16384 ] 
+@t3 = 1 INT
+- INT FL_LENGTH
+FL_LENGTH = @t3 INT
+- INT FL_NEXT
+FL_NEXT = FREE_LIST_START INT
+- CHAR keyboard [ 8 ] 
+end:
+
+init: void
+@t4 = 1 INT
+FL_LENGTH = @t4 INT
+FL_NEXT = FREE_LIST_START INT
+@t5 = 0 INT
+freeBlockStarts [ @t5 ] = FREE_LIST_START INT
+@t6 = 0 INT
+@t7 = MEMORY_SIZE - FREE_LIST_START INT
+freeBlockSizes [ @t6 ] = @t7 INT
+- INT i
+@t7 = 0 INT
+i = @t7 INT
+
+#L0:
+@t8 = 8 INT
+@t9 = i < @t8 INT
+
+if @t9 GOTO #L1 else GOTO #L2
+
+#L3:
+@t10 = 1 INT
+@t11 = i + @t10 INT
+i = @t11 INT
+GOTO #L0
+
+#L1:
+@t9 = 0 INT
+keyboard [ i ] = @t9 CHAR
+GOTO #L3
+
+#L2:
+end:
+
+peek: INT
+- arg INT address
+@t10 = 0 INT
+@t11 = address >= @t10 INT
+@t12 = address < MEMORY_SIZE INT
+if @t11 GOTO #L9 else GOTO #L7
+#L9:
+if @t12 GOTO #L6 else GOTO #L7
+#L6:
+@t13 = 1 INT
+GOTO #L8
+#L7:
+@t13 = 0 INT
+#L8:
+if @t13 GOTO #L10 else GOTO #L11
+#L10:
+@t11 = memory [ address ] INT
+return @t11 INT
+GOTO #L4
+#L11:
+#L4:
+@t12 = 1 INT
+@t13 = - @t12 INT
+return @t13 INT
+end:
+
+poke: void
+- arg INT address
+- arg INT value
+@t11 = 0 INT
+@t13 = address >= @t11 INT
+@t14 = address < MEMORY_SIZE INT
+if @t13 GOTO #L17 else GOTO #L15
+#L17:
+if @t14 GOTO #L14 else GOTO #L15
+#L14:
+@t15 = 1 INT
+GOTO #L16
+#L15:
+@t15 = 0 INT
+#L16:
+if @t15 GOTO #L18 else GOTO #L19
+#L18:
+memory [ address ] = value INT
+GOTO #L12
+#L19:
+#L12:
+end:
+
+best_fit: INT
+- arg INT size
+- INT bestFitIndex
+bestFitIndex = NO_BLOCK INT
+- INT bestFitSize
+bestFitSize = MEMORY_SIZE INT
+- INT i
+@t13 = 0 INT
+i = @t13 INT
+
+#L20:
+@t14 = i < FL_LENGTH INT
+
+if @t14 GOTO #L21 else GOTO #L22
+
+#L23:
+@t15 = 1 INT
+@t14 = i + @t15 INT
+i = @t14 INT
+GOTO #L20
+
+#L21:
+@t14 = freeBlockSizes [ i ] INT
+@t16 = @t14 >= size INT
+@t14 = freeBlockSizes [ i ] INT
+@t17 = @t14 < bestFitSize INT
+if @t16 GOTO #L29 else GOTO #L27
+#L29:
+if @t17 GOTO #L26 else GOTO #L27
+#L26:
+@t14 = 1 INT
+GOTO #L28
+#L27:
+@t14 = 0 INT
+#L28:
+if @t14 GOTO #L30 else GOTO #L31
+#L30:
+@t16 = freeBlockSizes [ i ] INT
+bestFitSize = @t16 INT
+bestFitIndex = i INT
+GOTO #L24
+#L31:
+#L24:
+GOTO #L23
+
+#L22:
+return bestFitIndex INT
+end:
+
+custom_sort: void
+- INT i
+@t17 = 0 INT
+i = @t17 INT
+
+#L32:
+@t14 = 1 INT
+@t16 = FL_LENGTH - @t14 INT
+@t18 = i < @t16 INT
+
+if @t18 GOTO #L33 else GOTO #L34
+
+#L35:
+@t16 = 1 INT
+@t18 = i + @t16 INT
+i = @t18 INT
+GOTO #L32
+
+#L33:
+- INT j
+@t18 = 1 INT
+@t19 = i + @t18 INT
+j = @t19 INT
+
+#L36:
+@t19 = j < FL_LENGTH INT
+
+if @t19 GOTO #L37 else GOTO #L38
+
+#L39:
+@t19 = 1 INT
+@t20 = j + @t19 INT
+j = @t20 INT
+GOTO #L36
+
+#L37:
+@t20 = freeBlockStarts [ i ] INT
+@t21 = freeBlockStarts [ j ] INT
+@t22 = @t20 > @t21 INT
+if @t22 GOTO #L41 else GOTO #L42
+#L41:
+@t20 = freeBlockStarts [ i ] INT
+- INT tempStart
+tempStart = @t20 INT
+@t21 = freeBlockSizes [ i ] INT
+- INT tempSize
+tempSize = @t21 INT
+@t22 = freeBlockStarts [ j ] INT
+freeBlockStarts [ i ] = @t22 INT
+@t20 = freeBlockSizes [ j ] INT
+freeBlockSizes [ i ] = @t20 INT
+freeBlockStarts [ j ] = tempStart INT
+freeBlockSizes [ j ] = tempSize INT
+GOTO #L40
+#L42:
+#L40:
+GOTO #L39
+
+#L38:
+GOTO #L35
+
+#L34:
+end:
+
+allocate: INT
+- arg INT size
+param size INT
+@t21 = @call best_fit INT 1
+- INT bestFitIndex
+bestFitIndex = @t21 INT
+@t20 = bestFitIndex == NO_BLOCK INT
+@t22 = ~ @t20 INT
+if @t22 GOTO #L44 else GOTO #L45
+#L44:
+@t21 = freeBlockStarts [ bestFitIndex ] INT
+- INT allocatedStart
+allocatedStart = @t21 INT
+@t20 = freeBlockSizes [ bestFitIndex ] INT
+@t22 = @t20 > size INT
+if @t22 GOTO #L47 else GOTO #L48
+#L47:
+@t21 = allocatedStart + size INT
+freeBlockStarts [ FL_LENGTH ] = @t21 INT
+@t20 = freeBlockSizes [ bestFitIndex ] INT
+@t22 = @t20 - size INT
+freeBlockSizes [ FL_LENGTH ] = @t22 INT
+@t21 = 1 INT
+@t20 = FL_LENGTH + @t21 INT
+FL_LENGTH = @t20 INT
+GOTO #L46
+#L48:
+#L46:
+@t22 = 1 INT
+@t20 = FL_LENGTH - @t22 INT
+@t23 = bestFitIndex < @t20 INT
+if @t23 GOTO #L50 else GOTO #L51
+#L50:
+- INT i
+i = bestFitIndex INT
+
+#L52:
+@t20 = 1 INT
+@t23 = FL_LENGTH - @t20 INT
+@t24 = i < @t23 INT
+
+if @t24 GOTO #L53 else GOTO #L54
+
+#L55:
+@t23 = 1 INT
+@t24 = i + @t23 INT
+i = @t24 INT
+GOTO #L52
+
+#L53:
+@t24 = 1 INT
+@t25 = i + @t24 INT
+@t26 = freeBlockStarts [ @t25 ] INT
+freeBlockStarts [ i ] = @t26 INT
+@t25 = 1 INT
+@t26 = i + @t25 INT
+@t27 = freeBlockSizes [ @t26 ] INT
+freeBlockSizes [ i ] = @t27 INT
+GOTO #L55
+
+#L54:
+GOTO #L49
+#L51:
+#L49:
+@t26 = 1 INT
+@t27 = FL_LENGTH - @t26 INT
+FL_LENGTH = @t27 INT
+return allocatedStart INT
+GOTO #L43
+#L45:
+#L43:
+return NO_BLOCK INT
+end:
+
+deallocate: void
+- arg INT start
+- arg INT size
+freeBlockStarts [ FL_LENGTH ] = start INT
+freeBlockSizes [ FL_LENGTH ] = size INT
+@t27 = 1 INT
+@t28 = FL_LENGTH + @t27 INT
+FL_LENGTH = @t28 INT
+@t28 = @call custom_sort void 0
+- INT i
+@t29 = 0 INT
+i = @t29 INT
+
+#L56:
+@t30 = 1 INT
+@t31 = FL_LENGTH - @t30 INT
+@t32 = i < @t31 INT
+
+if @t32 GOTO #L57 else GOTO #L58
+
+#L59:
+@t31 = 1 INT
+@t32 = i + @t31 INT
+i = @t32 INT
+GOTO #L56
+
+#L57:
+@t32 = freeBlockStarts [ i ] INT
+@t33 = freeBlockSizes [ i ] INT
+@t34 = @t32 + @t33 INT
+@t32 = 1 INT
+@t33 = i + @t32 INT
+@t35 = freeBlockStarts [ @t33 ] INT
+@t33 = @t34 == @t35 INT
+if @t33 GOTO #L61 else GOTO #L62
+#L61:
+@t34 = freeBlockSizes [ i ] INT
+@t35 = 1 INT
+@t33 = i + @t35 INT
+@t36 = freeBlockSizes [ @t33 ] INT
+@t33 = @t34 + @t36 INT
+freeBlockSizes [ i ] = @t33 INT
+- INT j
+@t34 = 1 INT
+@t36 = i + @t34 INT
+j = @t36 INT
+
+#L63:
+@t33 = 1 INT
+@t36 = FL_LENGTH - @t33 INT
+@t37 = j < @t36 INT
+
+if @t37 GOTO #L64 else GOTO #L65
+
+#L66:
+@t36 = 1 INT
+@t37 = j + @t36 INT
+j = @t37 INT
+GOTO #L63
+
+#L64:
+@t37 = 1 INT
+@t38 = j + @t37 INT
+@t39 = freeBlockStarts [ @t38 ] INT
+freeBlockStarts [ j ] = @t39 INT
+@t38 = 1 INT
+@t39 = j + @t38 INT
+@t40 = freeBlockSizes [ @t39 ] INT
+freeBlockSizes [ j ] = @t40 INT
+GOTO #L66
+
+#L65:
+@t39 = 1 INT
+@t40 = FL_LENGTH - @t39 INT
+FL_LENGTH = @t40 INT
+@t40 = 1 INT
+@t41 = i - @t40 INT
+i = @t41 INT
+GOTO #L60
+#L62:
+#L60:
+GOTO #L59
+
+#L58:
+end:
+
+keyPressed: CHAR
+@t41 = 0 INT
+@t42 = keyboard [ @t41 ] CHAR
+return @t42 CHAR
+end:
+
+readChar: CHAR
+- CHAR key
+
+#L67:
+@t42 = @call keyPressed CHAR 0
+@t43 = 0 INT
+@t44 = @t42 == @t43 INT
+
+if @t44 GOTO #L68 else GOTO #L69
+
+#L68:
+GOTO #L67
+
+#L69:
+@t42 = @call keyPressed CHAR 0
+key = @t42 CHAR
+
+#L70:
+@t44 = @call keyPressed CHAR 0
+@t42 = 0 INT
+@t46 = @t44 == @t42 INT
+@t45 = ~ @t46 INT
+
+if @t45 GOTO #L71 else GOTO #L72
+
+#L71:
+GOTO #L70
+
+#L72:
+return key CHAR
+end:
+
+removeLastCharacter: STRING
+- arg STRING input
+-  result
+return result STRING
+end:
+
+readLine: STRING
+- arg STRING message
+-  line
+- CHAR c
+@t46 = @call readChar CHAR 0
+c = @t46 CHAR
+
+#L73:
+@t44 = 'a' CHAR
+@t46 = c == @t44 CHAR
+@t45 = ~ @t46 CHAR
+
+if @t45 GOTO #L74 else GOTO #L75
+
+#L74:
+@t46 = 'b' CHAR
+@t45 = c == @t46 CHAR
+if @t45 GOTO #L77 else GOTO #L78
+#L77:
+GOTO #L76
+#L78:
+@t45 = line + c STRING
+line = @t45 STRING
+#L76:
+@t45 = @call readChar CHAR 0
+c = @t45 CHAR
+GOTO #L73
+
+#L75:
+return line STRING
+end:
+
+stoi: INT
+- arg STRING str
+@t45 = 0 INT
+- INT result
+result = @t45 INT
+@t47 = 0 INT
+- BOOL isNegative
+isNegative = @t47 BOOL
+@t48 = 0 INT
+- INT i
+i = @t48 INT
+@t49 = 0 INT
+@t50 = str [ @t49 ] STRING
+@t51 = '-' CHAR
+@t52 = @t50 == @t51 STRING
+if @t52 GOTO #L80 else GOTO #L81
+#L80:
+@t50 = 1 INT
+isNegative = @t50 BOOL
+GOTO #L79
+#L81:
+#L79:
+@t52 = 1 INT
+i = @t52 INT
+
+#L82:
+@t53 = 10 INT
+@t54 = i < @t53 INT
+
+if @t54 GOTO #L83 else GOTO #L84
+
+#L85:
+@t54 = 1 INT
+@t55 = i + @t54 INT
+i = @t55 INT
+GOTO #L82
+
+#L83:
+@t55 = str [ i ] STRING
+@t56 = '0' CHAR
+@t57 = @t55 >= @t56 STRING
+@t55 = str [ i ] STRING
+@t58 = '9' CHAR
+@t59 = @t55 <= @t58 STRING
+if @t57 GOTO #L91 else GOTO #L89
+#L91:
+if @t59 GOTO #L88 else GOTO #L89
+#L88:
+@t55 = 1 STRING
+GOTO #L90
+#L89:
+@t55 = 0 STRING
+#L90:
+if @t55 GOTO #L92 else GOTO #L93
+#L92:
+@t57 = 10 INT
+@t59 = 0 INT
+@t55 = 0 INT
+@t61 = 1 INT
+#L95:
+@t60 = @t55 < @t57  INT
+if @t60 GOTO #L96 else GOTO #L97
+#L96:
+@t59 = @t59 + result  INT
+@t55 = @t55 + @t61  INT
+GOTO #L95
+#L97:
+@t55 = str [ i ] STRING
+@t60 = '0' CHAR
+@t61 = @t55 - @t60 STRING
+@t55 = @t59 + @t61 STRING
+result = @t55 INT
+GOTO #L86
+#L93:
+@t59 = 0 INT
+return @t59 INT
+#L86:
+GOTO #L85
+
+#L84:
+if isNegative GOTO #L99 else GOTO #L100
+#L99:
+@t61 = - result INT
+result = @t61 INT
+GOTO #L98
+#L100:
+#L98:
+return result INT
+end:
+
+readInt: INT
+- arg STRING message
+-  line
+param message STRING
+@t55 = @call readLine STRING 1
+line = @t55 STRING
+param line STRING
+@t61 = @call stoi INT 1
+return @t61 INT
+end:
+
+main: INT
+@t55 = @call global void 0
+@t61 = @call init void 0
+@t62 = 0 INT
+return @t62 INT
+end:
+

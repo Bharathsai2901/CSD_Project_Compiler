@@ -42,16 +42,18 @@
 // // }
 
 //int x=5;
-// //typeof x;
-// void global(){
-//     int x=5;
+//typeof x;
+// int f(int y){
+//     int x=y;
+//     return y;
 // }
 
 // int main(){
-//     global();
-//     typeof x;
-//     progout(x);
-//     int y=5;
+//     int t = 5;
+//     int k = f(t);
+//     //typeof x;
+//     progout(k);
+//     //int y=5;
 //     //progout(y);
 //     return 0;
 // }
@@ -129,6 +131,7 @@ void custom_sort() {
 }
 
 int allocate(int size) {
+    //typeof size;
     int bestFitIndex = best_fit(size);
 
     if (bestFitIndex != NO_BLOCK) {
@@ -194,14 +197,14 @@ char readChar() {
 }
 
 string removeLastCharacter(string input) {
-    if (input.length() == 0) {
-        return input; // Return empty string if input is already empty
-    }
+    // if (input.length() == 0) {
+    //     return input; // Return empty string if input is already empty
+    // }
     
     string result;
-    for (int i = 0; i < input.length() - 1; i++) {
-        result = result + input[i];
-    }
+    // for (int i = 0; i < input.length() - 1; i++) {
+    //     result = result + input[i];
+    // }
     return result;
 }
 
@@ -211,11 +214,13 @@ string readLine(string message) {
 
     //cout << message;
     c = readChar();
-    while (c != '\n') {
-        if (c == '\b') {
-            if (line.length() != 0) {
-                removeLastCharacter(line);
-            }
+    // char a = '\n';
+    // char b = '\b';
+    while (c != 'a') {
+        if (c == 'b') {
+            // if (line.length() != 0) {
+            //     removeLastCharacter(line);
+            // }
         }
         else {
             line = line + c;
@@ -228,15 +233,15 @@ string readLine(string message) {
 
 int stoi(string str) {
     int result = 0;
-    bool isNegative = false;
+    bool isNegative = 0;
     int i = 0;
 
     if (str[0] == '-') {
-        isNegative = true;
+        isNegative = 1;
         // i = 1;
     }
 
-    for (i=1; i < str.length(); i=i+1) {
+    for (i=1; i < 10; i=i+1) {
         if (str[i] >= '0' && str[i] <= '9') {
             result = result * 10 + (str[i] - '0');
         } else {

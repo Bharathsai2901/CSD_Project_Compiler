@@ -15,6 +15,7 @@ digit [0-9]
 "char"                      { strcpy(yylval.node.lexeme, yytext); return CHAR; }
 "float"                     { strcpy(yylval.node.lexeme, yytext); return FLOAT; }
 "string"                    { strcpy(yylval.node.lexeme, yytext); return STRING; }
+"bool"                      { strcpy(yylval.node.lexeme, yytext); return BOOL; }
 "void"                      { strcpy(yylval.node.lexeme, yytext); return VOID; }
 "return"                    { strcpy(yylval.node.lexeme, yytext); return RETURN; }
 "progin"                     { strcpy(yylval.node.lexeme, yytext); return INPUT; }
@@ -79,7 +80,7 @@ digit [0-9]
 [ \t]*                      { ; }
 [\n]                        { countn++; }
 ["].*["]                    { strcpy(yylval.node.lexeme, yytext); return STR; }
-['].[']                     { strcpy(yylval.node.lexeme, yytext); return CHARACTER; }
+['].[']|['\\n']|['\\b']     { strcpy(yylval.node.lexeme, yytext); return CHARACTER; }
 [<].*[>]                     { strcpy(yylval.node.lexeme, yytext); return HEADERFILE; }
 .                           { ; }
 

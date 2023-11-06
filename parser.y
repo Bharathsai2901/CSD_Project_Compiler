@@ -21,7 +21,7 @@
             strcpy($$.type, $1.type);\
         }\
         else{\
-            sem_errors.push_back("Cannot convert between CHAR and FLOAT in line : " + to_string(countn+1));\
+            strcpy($$.type, "STRING");\
         }}
     
     #include <iostream>
@@ -94,7 +94,7 @@
     string curr_func_name="global";
     vector<string> curr_func_param_type;
 
-    vector<string> reserved = {"int", "float", "char", "string", "void", "if", "elif", "else", "for", "while", "break", "continue", "main", "return", "switch", "case", "progin", "progout"};
+    vector<string> reserved = {"int", "float", "char", "bool","string", "void", "if", "elif", "else", "for", "while", "break", "continue", "main", "return", "switch", "case", "progin", "progout"};
 
 %}
 
@@ -115,7 +115,7 @@
     } node;
 }
 
-%token <node> INCLUDE HEADERFILE INT CHAR FLOAT STRING VOID RETURN INT_NUM FLOAT_NUM ID LEFTSHIFT RIGHTSHIFT LE GE EQ NE GT LT AND OR NOT ADD SUBTRACT DIVIDE MULTIPLY MODULO BITAND BITOR NEGATION XOR STR CHARACTER CC OC CS OS CF OF COMMA COLON SCOL OUTPUT INPUT SWITCH CASE BREAK DEFAULT IF ELIF ELSE WHILE FOR CONTINUE TYPEOF
+%token <node> INCLUDE HEADERFILE INT CHAR FLOAT STRING BOOL VOID RETURN INT_NUM FLOAT_NUM ID LEFTSHIFT RIGHTSHIFT LE GE EQ NE GT LT AND OR NOT ADD SUBTRACT DIVIDE MULTIPLY MODULO BITAND BITOR NEGATION XOR STR CHARACTER CC OC CS OS CF OF COMMA COLON SCOL OUTPUT INPUT SWITCH CASE BREAK DEFAULT IF ELIF ELSE WHILE FOR CONTINUE TYPEOF
 
 %type <node> headerfileInclude Program func func_list func_prefix param_list param stmt_list stmt declaration return_stmt data_type func_data_type expr primary_expr unary_expr unary_op const assign if_stmt elif_stmt else_stmt switch_stmt case_stmt case_stmt_list while_loop_stmt for_loop_stmt postfix_expr func_call arg_list arg
 
@@ -271,7 +271,7 @@ declaration     :   data_type ID SCOL {
                         // if(multiple_declaration(string($2.lexeme))){
                         //     check_scope(string($2.lexeme));
                         // };
-                        if(string($1.lexeme)!="int")sem_errors.push_back(string($1.lexeme)+" "+string($2.lexeme));
+                        //if(string($1.lexeme)!="int")sem_errors.push_back(string($1.lexeme)+" "+string($2.lexeme));
                         tac.push_back("- " + string($1.type) + " " + string($2.lexeme));
                         func_table[curr_func_name].symbol_table[string($2.lexeme)] = { string($1.type), scope_counter, 0, 0, countn+1 };
                     }
@@ -372,6 +372,9 @@ data_type       :   INT {
                     }
                     | CHAR {
                         strcpy($$.type, "CHAR");
+                    }
+                    | BOOL {
+                        strcpy($$.type, "BOOL");
                     }
                     
                     ;
@@ -1095,7 +1098,7 @@ bool check_declaration(string variable){
     bool a = func_table[curr_func_name].symbol_table.find(variable) == func_table[curr_func_name].symbol_table.end();
     bool b = func_table["global"].symbol_table.find(variable) == func_table["global"].symbol_table.end();
     if(a&&b){
-        sem_errors.push_back("Variable not declared in line " + to_string(countn+1) + " before usage.");
+        sem_errors.push_back(variable + " Variable not declared in line " + to_string(countn+1) + " before usage.");
         return false;
     }
     return true;
@@ -1105,7 +1108,7 @@ bool check_scope(string variable){
     bool a = func_table[curr_func_name].symbol_table.find(variable) == func_table[curr_func_name].symbol_table.end();
     bool b = func_table["global"].symbol_table.find(variable) == func_table["global"].symbol_table.end();
     if(a&&b){
-        sem_errors.push_back("Variable not declared in line " + to_string(countn+1) + " before usage.");
+        sem_errors.push_back(variable + " Variable not declared in line " + to_string(countn+1) + " before usage.");
         return false;
     }
     if(curr_func_name=="global") return 1;
@@ -1136,15 +1139,15 @@ bool multiple_declaration(string variable){
 }
 
 bool check_type(string l, string r){
-    if(r == "FLOAT" && l == "CHAR"){
-        sem_errors.push_back("Cannot convert type FLOAT to CHAR in line " + to_string(countn+1));
-        return false;
-    }
-    if(l == "FLOAT" && r == "CHAR"){
-        sem_errors.push_back("Cannot convert typr CHAR to FLOAT in line " + to_string(countn+1));
-        return false;
-    }
-    return true;
+    // if(r == "FLOAT" && l == "CHAR"){
+    //     sem_errors.push_back("Cannot convert type FLOAT to CHAR in line " + to_string(countn+1));
+    //     return false;
+    // }
+    // if(l == "FLOAT" && r == "CHAR"){
+    //     sem_errors.push_back("Cannot convert typr CHAR to FLOAT in line " + to_string(countn+1));
+    //     return false;
+    // }
+    return 0;
 }
 
 bool is_reserved_word(string id){
@@ -1160,10 +1163,11 @@ bool is_reserved_word(string id){
 }
 
 bool type_check(string type1, string type2) {
-    if((type1 == "FLOAT" and type2 == "CHAR") or (type1 == "CHAR" and type2 == "FLOAT")) {
-        return true;
-    }
-    return false;
+    // if((type1 == "FLOAT" and type2 == "CHAR") or (type1 == "CHAR" and type2 == "FLOAT")) {
+    //     return true;
+    // }
+    // return false;
+    return 0;
 }
 
 void yyerror(const char* msg) {
