@@ -1,0 +1,3 @@
+void progoutCode(int sum){
+    progout("Bye");
+}
