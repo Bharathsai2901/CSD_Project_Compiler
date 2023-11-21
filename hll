@@ -1,0 +1,8 @@
+
+void global(){
+    int a1=3;
+}
+int main(){
+    int b1 = a1;
+    a1=a1+1;
+}

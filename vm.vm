@@ -1,0 +1,18 @@
+function global 1 1 void
+push constant 3 INT
+pop temp 0 INT
+push temp 0 INT
+pop local 0 INT
+push constant 0 INT
+return
+function main 2 2 INT
+push local 1 INT
+pop local 0 INT
+push constant 1 INT
+pop temp 0 INT
+push local 1 INT
+push temp 0 INT
+add INT
+pop temp 1 INT
+push temp 1 INT
+pop local 1 INT

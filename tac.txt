@@ -1,0 +1,14 @@
+global: void
+@t0 = 3 INT
+- INT a1
+a1 = @t0 INT
+end:
+
+main: INT
+- INT b1
+b1 = a1 INT
+@t1 = 1 INT
+@t2 = a1 + @t1 INT
+a1 = @t2 INT
+end:
+
